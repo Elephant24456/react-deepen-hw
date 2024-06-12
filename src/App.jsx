@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
+import SignIn from "./pages/SignIn"
+import SignUp from "./pages/SignUp"
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
@@ -77,6 +79,14 @@ function App() {
           <Route
             path="/detail/:id"
             element={<Detail expenses={expenses} setExpenses={setExpenses} />}
+          />
+          <Route
+            path="/sign_in"
+            element={<SignIn />}
+          />
+          <Route
+            path="/sign_up"
+            element={<SignUp />}
           />
         </Routes>
       </BrowserRouter>
