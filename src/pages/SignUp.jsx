@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { register } from "../lib/api/auth";
 
 const Container = styled.div`
   max-width: 400px;
@@ -57,9 +58,32 @@ export default function SignUp() {
   const navigate = useNavigate();
 
   const handleRegister = async () => {
-    console.log("id:", id);
-    console.log("password:", password);
-    console.log("nickname:", nickname);
+    if (id.length < 4 || id.length > 10) {
+      alert("아이디는 4글자에서 10글자 이내로만 가능합니다!");
+      return;
+    }
+
+    if (password.length < 4 || password.length > 15) {
+      alert("패스워드는 4글자에서 15글자 이내로만 가능합니다!");
+      return;
+    }
+
+    if (nickname.length < 1 || nickname.length > 10) {
+      alert("닉네임은 1글자에서 10글자 이내로만 가능합니다!");
+      return;
+    }
+
+    // API 호출을 진짜로 하는 부분
+
+    const response = await register({
+      id: id,
+      password: password,
+      nickname: nickname,
+    });
+    if (response) {
+      confirm("회원가입이 완료되었습니다.");
+      navigate("/sign_in");
+    }
   };
 
   return (
@@ -92,7 +116,7 @@ export default function SignUp() {
         />
       </InputGroup>
       <Button onClick={handleRegister}>회원가입</Button>
-      <ToggleButton onClick={() => navigate("/login")}>돌아가기</ToggleButton>
+      <ToggleButton onClick={() => navigate("/sign_in")}>돌아가기</ToggleButton>
     </Container>
   );
 }
