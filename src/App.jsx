@@ -1,10 +1,9 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
 import Detail from "./pages/Detail";
-import SignIn from "./pages/SignIn"
-import SignUp from "./pages/SignUp"
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
 import { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 
 function App() {
@@ -68,6 +67,10 @@ function App() {
     },
   ]);
 
+  const [user, setUser] = useState(null);
+
+  console.log("현재 유저 데이터: ", user);
+
   return (
     <>
       <BrowserRouter>
@@ -80,14 +83,8 @@ function App() {
             path="/detail/:id"
             element={<Detail expenses={expenses} setExpenses={setExpenses} />}
           />
-          <Route
-            path="/sign_in"
-            element={<SignIn />}
-          />
-          <Route
-            path="/sign_up"
-            element={<SignUp />}
-          />
+          <Route path="/sign_in" element={<SignIn setUser={setUser} />} />
+          <Route path="/sign_up" element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     </>

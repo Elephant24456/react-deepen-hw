@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { login } from "../lib/api/auth";
 
 const Container = styled.div`
   max-width: 400px;
@@ -55,9 +56,15 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSignIn = () => {
-    console.log("id:", id);
-    console.log("password:", password);
+  const handleSignIn = async () => {
+    const { userId, nickname, avatar } = await login({
+      id: id,
+      password: password,
+    });
+
+    setUser({ userId, nickname, avatar });
+
+    console.log("로그인 API 응답값 :", response);
   };
 
   return (
